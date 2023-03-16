@@ -1,14 +1,9 @@
 import random
-
-palavras = ["framboesa", "patela", "cotovelo", "abacate", "revista", "mercado", "academia", "submarino", "camelo", "sobrinha", "mochila", "mosquito", "caranguejo", "lagarto"]
-
-def escolhe_palavra():
-    x = random.choice(palavras)
-    return(x)
+import escolhedor_de_palavras
 
 def tracos_palavra():
     
-    palavra = list(escolhe_palavra())
+    palavra = palavra_escolhida
     n = len(palavra)
     black = (0, 0,0)
     if n == 4:
@@ -70,59 +65,59 @@ def tracos_palavra():
 
 def imprimir_letras():
     
-    palavra = list(escolhe_palavra())
-    n = len(palavra)
+    n = len(palavra_escolhida)
+    check_palavra = [" "] * n 
     font = pygame.font.Font(None, 80)
     black = (0, 0,0)
+    if jogada in palavra_escolhida:
+        for j in range(n):
+            if jogada == palavra_escolhida[j]:
+                check_palavra[j] = jogada
     if n == 4:
         la, la1 = 130,450
         for i in range(n):
-            text = font.render(palavra[i], True, (0,0,0))
+            text = font.render(check_palavra[i], True, black)
             scrn.blit(text, (la, la1))
             la += 127
     if n == 5:
         la, la1 = 130,450
         for i in range(n):
-            text = font.render(palavra[i], True, (0,0,0))
+            text = font.render(check_palavra[i], True, black)
             scrn.blit(text, (la, la1))
             la += 127
     if n == 6:
         la, la1 = 55,450
         for i in range(n):
-            text = font.render(palavra[i], True, (0,0,0))
+            text = font.render(check_palavra[i], True, black)
             scrn.blit(text, (la, la1))
             la += 125
     if n == 7:
         la, la1 = 65,450
         for i in range(n):
-            text = font.render(palavra[i], True, (0,0,0))
+            text = font.render(check_palavra[i], True,black)
             scrn.blit(text, (la, la1))
             la += 101
     if n == 8:
-        
+        la, la1 = 58,450
+        for i in range(n):
+            text = font.render(check_palavra[i], True, black)
+            scrn.blit(text, (la, la1))
+            la += 91
+    
+    if n == 9:
+        la, la1 = 48,450
+        for i in range(n):
+            text = font.render(check_palavra[i], True, black)
+            scrn.blit(text, (la, la1))
+            la += 81
+    
     elif n== 10: 
         la, la1 = 20,450
         for i in range(n):
-            text = font.render(palavra[i], True, (0,0,0))
+            text = font.render(check_palavra[i], True, black)
             scrn.blit(text, (la, la1))
             la += 80
 
-# black = (0,0,0)
-#    pos, posf = 50, 125
-#    for _ in range(7):
-#        start_pos = (pos, 500)
-#        end_pos = (posf,500)
-#        pygame.draw.line(scrn, black, start_pos, end_pos, 10)
-#        pos += 100
-#        posf += 100
-#    palavra = list("MASASAS")
-#    n = len(palavra)
-#    black = (0, 0,0)
-#    font = pygame.font.Font(None, 80)
-#    la, la1 = 65,450
-#    for i in range(n):
-#        text = font.render(palavra[i], True, (0,0,0))
-#        scrn.blit(text, (la, la1))
-#        la += 101
+
 
 tracos_palavra()
