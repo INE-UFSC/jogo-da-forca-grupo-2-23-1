@@ -1,5 +1,5 @@
 letra_jogador = input()
-letra_jogada = ["w"]
+letra_jogada = []
 
 #x é a letra do jogador
 #y é a palavra
