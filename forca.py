@@ -1,5 +1,5 @@
 import pygame
-
+erros = 0 #Coloquei o "erros" nesse arquivo e no arquivo do corretor, quando for montar tem que tirar um deles
 def desenha_cabeca(screen):
     pygame.draw.circle(surface=screen, color='red', center=(207, 144), radius=20, width=5)
     pygame.display.update()
@@ -37,13 +37,18 @@ def init_pygame():
     forca = pygame.image.load("./imagens/forca.png").convert()
     scrn.blit(forca, (100, 100))
     pygame.display.flip()
-
-    desenha_cabeca(scrn)
-    desenha_corpo(scrn)
-    desenha_braco_dir(scrn)
-    desenha_braco_esq(scrn)
-    desenha_perna_dir(scrn)
-    desenha_perna_esq(scrn)
+    if erros >= 1:
+        desenha_cabeca(scrn)
+    if erros >= 2:
+        desenha_corpo(scrn)
+    if erros >= 3:
+        desenha_braco_dir(scrn)
+    if erros >= 4:
+        desenha_braco_esq(scrn)
+    if erros >= 5:
+        desenha_perna_dir(scrn)
+    if erros >= 6:
+        desenha_perna_esq(scrn)
 
 if __name__ == '__main__':
     init_pygame()
