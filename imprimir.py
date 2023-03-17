@@ -1,6 +1,14 @@
 import random
 import escolhedor_de_palavras
 
+def letras_erradas():
+    
+    string_completa = "Letras Erradas: " + ", ".join(letra_errada)
+    font = pygame.font.Font(None, 24)
+    black = (0,0,0)
+    text = font.render(string_completa, True, (0,0,0))
+
+
 def tracos_palavra():
     
     palavra = palavra_escolhida
