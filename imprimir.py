@@ -1,17 +1,18 @@
-import random
-import escolhedor_de_palavras
-
-def letras_erradas():
-    
+import pygame
+from corretor import *
+from imprimir import *
+from fimdejogo import *
+from escolhedor_de_palavras import *
+def letras_erradas(scrn, letra_errada):
     string_completa = "Letras Erradas: " + ", ".join(letra_errada)
     font = pygame.font.Font(None, 24)
     black = (0,0,0)
     text = font.render(string_completa, True, (0,0,0))
+    scrn.blit(text, (50, 100))
+    pygame.display.update()
 
 
-def tracos_palavra():
-    
-    palavra = palavra_escolhida
+def tracos_palavra(palavra, scrn):
     n = len(palavra)
     black = (0, 0,0)
     if n == 4:
@@ -19,7 +20,9 @@ def tracos_palavra():
         for _ in range(4):
             start_pos = (pos, 500)
             end_pos = (posf,500)
+            print(start_pos)
             pygame.draw.line(scrn, black, start_pos, end_pos, 10)
+            pygame.display.update()
             pos += 125
             posf += 125
     elif n == 5:
@@ -28,6 +31,7 @@ def tracos_palavra():
             start_pos = (pos, 500)
             end_pos = (posf,500)
             pygame.draw.line(scrn, black, start_pos, end_pos, 10)
+            pygame.display.update()
             pos += 125
             posf += 125
     elif n == 6:
@@ -36,6 +40,7 @@ def tracos_palavra():
             start_pos = (pos, 500)
             end_pos = (posf,500)
             pygame.draw.line(scrn, black, start_pos, end_pos, 10)
+            pygame.display.update()
             pos += 125
             posf += 125
     elif n == 7:
@@ -44,6 +49,7 @@ def tracos_palavra():
             start_pos = (pos, 500)
             end_pos = (posf,500)
             pygame.draw.line(scrn, black, start_pos, end_pos, 10)
+            pygame.display.update()
             pos += 100
             posf += 100
     elif n == 8:
@@ -52,6 +58,7 @@ def tracos_palavra():
             start_pos = (pos, 500)
             end_pos = (posf,500)
             pygame.draw.line(scrn, black, start_pos, end_pos, 10)
+            pygame.display.update()
             pos += 100
             posf += 100
     elif n == 9:
@@ -60,6 +67,7 @@ def tracos_palavra():
             start_pos = (pos, 500)
             end_pos = (posf,500)
             pygame.draw.line(scrn, black, start_pos, end_pos, 10)
+            pygame.display.update()
             pos += 80
             posf += 80
     elif n == 10:
@@ -68,64 +76,78 @@ def tracos_palavra():
             start_pos = (pos, 500)
             end_pos = (posf,500)
             pygame.draw.line(scrn, black, start_pos, end_pos, 10)
+            pygame.display.update()
             pos += 80
             posf += 80
 
-def imprimir_letras():
-    
+def imprimir_letras(palavra_escolhida, letra, check_palavra, scrn):
     n = len(palavra_escolhida)
-    check_palavra = [" "] * n 
+    print(check_palavra)
+
+
     font = pygame.font.Font(None, 80)
     black = (0, 0,0)
-    if jogada in palavra_escolhida:
+    if letra in palavra_escolhida:
         for j in range(n):
-            if jogada == palavra_escolhida[j]:
-                check_palavra[j] = jogada
+            if letra == palavra_escolhida[j]:
+                check_palavra[j] = letra
+    print(check_palavra)
     if n == 4:
-        la, la1 = 130,450
+        la, la1 = 130,440
         for i in range(n):
             text = font.render(check_palavra[i], True, black)
             scrn.blit(text, (la, la1))
             la += 127
+            pygame.display.update()
     if n == 5:
-        la, la1 = 130,450
+        la, la1 = 130,440
         for i in range(n):
             text = font.render(check_palavra[i], True, black)
             scrn.blit(text, (la, la1))
             la += 127
+            pygame.display.update()
     if n == 6:
-        la, la1 = 55,450
+        la, la1 = 55,440
         for i in range(n):
             text = font.render(check_palavra[i], True, black)
             scrn.blit(text, (la, la1))
             la += 125
+            pygame.display.update()
     if n == 7:
-        la, la1 = 65,450
+        la, la1 = 65,440
         for i in range(n):
             text = font.render(check_palavra[i], True,black)
             scrn.blit(text, (la, la1))
             la += 101
+            pygame.display.update()
     if n == 8:
-        la, la1 = 58,450
+        la, la1 = 58,440
         for i in range(n):
             text = font.render(check_palavra[i], True, black)
             scrn.blit(text, (la, la1))
             la += 91
+            pygame.display.update()
     
     if n == 9:
-        la, la1 = 48,450
+        la, la1 = 48,440
         for i in range(n):
             text = font.render(check_palavra[i], True, black)
             scrn.blit(text, (la, la1))
             la += 81
+            pygame.display.update()
     
     elif n== 10: 
-        la, la1 = 20,450
+        la, la1 = 20,440
         for i in range(n):
             text = font.render(check_palavra[i], True, black)
             scrn.blit(text, (la, la1))
             la += 80
+            pygame.display.update()
 
 
 
-tracos_palavra()
+    return check_palavra
+
+
+if __name__ == '__main__':
+    tracos_palavra('abacaxi')

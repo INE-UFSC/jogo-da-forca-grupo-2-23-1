@@ -1,5 +1,8 @@
+import pygame
+import corretor
+import imprimir
+import escolhedor_de_palavras
 import random
-
 
 # Alterei o nome da variavel da palavra escolhida pra palavra escolhida
 def escolhe_palavra():
