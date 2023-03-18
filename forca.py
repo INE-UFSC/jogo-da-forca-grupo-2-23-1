@@ -1,52 +1,47 @@
 import pygame
+
+from corpo import Corpo
 from corretor import *
-from imprimir import *
 from escolhedor_de_palavras import *
 from fimdejogo import *
+from imprimir import *
+
 
 class ForcaJogo:
-    def __init__(self):
+    def __init__(self, tela):
         self.palavra_escolhida = escolhe_palavra()
         self.erros = 0
-        self.letra_jogada = []
-        self.letra_errada = []
+        self.letra_jogada = set()
         self.check_palavra = [" "] * len(self.palavra_escolhida)
+        self.max_erros = 6
+        self.corpo = Corpo(tela)
 
-#erros = 0 #Coloquei o "erros" nesse arquivo e no arquivo do corretor, quando for montar tem que tirar um deles
-def desenha_cabeca(screen):
-    pygame.draw.circle(surface=screen, color='red', center=(207, 144), radius=20, width=5)
-    pygame.display.update()
+        tracos_palavra(self.palavra_escolhida, tela)
 
-def desenha_corpo(screen):
-    pygame.draw.line(surface=screen, color='red', start_pos=(207, 164), end_pos=(207, 214), width=5)
-    pygame.display.update()
+    def joga_letra(self, letra, tela):
+        letra_correta = corretor_palavra(letra, self.palavra_escolhida)
 
-def desenha_braco_dir(screen):
-    pygame.draw.line(surface=screen, color='red', start_pos=(207, 174), end_pos=(227, 194), width=5)
-    pygame.display.update()
+        if not letra_correta and letra not in self.letra_jogada:
+            self.erros += 1
 
-def desenha_braco_esq(screen):
-    pygame.draw.line(surface=screen, color='red', start_pos=(207, 174), end_pos=(187, 194), width=5)
-    pygame.display.update()
+            if self.erros > self.max_erros:
+                gameover(tela)
 
-def desenha_perna_dir(screen):
-    pygame.draw.line(surface=screen, color='red', start_pos=(207, 214), end_pos=(227, 234), width=5)
-    pygame.display.update()
+            self.corpo.adiciona_parte()
+            letras_erradas(tela, letra)
+        else:
+            imprimir_letras(self.palavra_escolhida, letra, self.check_palavra, tela)
 
-def desenha_perna_esq(screen):
-    pygame.draw.line(surface=screen, color='red', start_pos=(207, 214), end_pos=(187, 234), width=5)
-    pygame.display.update()
-    gameover(screen)
+            if not " " in self.check_palavra:
+                parabens(tela)
 
-
-escolhe_palavra()
-STATUS_CORPO = [desenha_cabeca, desenha_corpo, desenha_braco_dir, desenha_braco_esq, desenha_perna_dir, desenha_perna_esq]
+        self.letra_jogada.add(letra)
 
 def init_pygame():
     pygame.init()
 
     scrn = pygame.display.set_mode((800, 600))
-    scrn.fill('white')
+    scrn.fill('#0D5C33')
 
     pygame.display.set_caption('image')
     forca = pygame.image.load("./imagens/forca.png").convert()
@@ -55,42 +50,25 @@ def init_pygame():
 
     return scrn
 
-def forca_jogar():
+def main():
+    tela = init_pygame()
 
-    scrn = init_pygame()
-
-    jogo = ForcaJogo()
-    tracos_palavra(jogo.palavra_escolhida, scrn)
-    parte_atual = iter(STATUS_CORPO)
-
+    jogo = ForcaJogo(tela)
 
     running  = True
-    while running:  
-        for event in pygame.event.get():  
-            if event.type == pygame.QUIT:  
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                letra = chr(event.key)
+                letra = chr(event.key).lower()
 
-                resultado = corretor_palavra(letra, jogo.palavra_escolhida, jogo.letra_jogada)
-                print(letra, jogo.palavra_escolhida, jogo.letra_jogada, resultado)
-                jogo.letra_jogada.append(letra)
+                if ord(letra) < ord('a') or ord(letra) > ord('z'):
+                    continue
 
-                if not resultado:
-                    jogo.letra_errada.append(letra)
-                    jogo.erros += 1
-                    parte_desenho = next(parte_atual)
-                    parte_desenho(scrn)
-
-                    if letra not in jogo.letra_jogada:
-                        letras_erradas(scrn, letra)
-                else:
-                    imprimir_letras(jogo.palavra_escolhida, letra, jogo.check_palavra, scrn)
-
-                    if not " " in jogo.check_palavra:
-                        parabens(scrn)
+                jogo.joga_letra(letra, tela)
 
     pygame.quit()
 
 if __name__ == '__main__':
-    forca_jogar()
+    main()

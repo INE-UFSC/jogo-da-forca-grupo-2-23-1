@@ -1,12 +1,12 @@
 import pygame
-from forca import forca_jogar
+
 
 def gameover(scrn):
     font = pygame.font.Font(None, 120)
     scrn.fill('white')
     black = (0,0,0)
     text = font.render("GAME OVER", True, black)
-    scrn.blit(text, (800/4, 600/4))
+    scrn.blit(text, (675/4, 600/4))
     pygame.display.update()
     running  = True
     while running:
@@ -18,8 +18,8 @@ def parabens(scrn):
     font = pygame.font.Font(None, 120)
     scrn.fill('white')
     black = (0,0,0)
-    text = font.render("PARABENS", True, black)
-    scrn.blit(text, (800/4, 600/4))
+    text = font.render("PARABÉNS", True, black)
+    scrn.blit(text, (750/4, 600/4))
     pygame.display.update()
     running  = True
     while running:
